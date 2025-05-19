@@ -1,28 +1,39 @@
-# 🌲 Cypress, do Zero à Nuvem ☁️
+# Cypress From Zero to Cloud
 
-👋 Seja bem-vindo(a)!
+A comprehensive project demonstrating end-to-end testing using Cypress, covering both desktop and mobile viewports.
 
-É muito bom tê-lo(a) aqui. Tenho certeza que você vai amar esse curso. ❤️
+## Prerequisites
 
-## O que você vai aprender?
+- [Node.js](https://nodejs.org/) (version 14 or higher)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 
-- Como configurar um projeto Cypress do zero
-- Como visitar páginas locais e remotas
-- Como lidar com os elementos mais comuns encontrados em aplicações web
-- Como testar upload de arquivos
-- Como realizar as mais diversas verificações de resultados esperados
-- Como criar comandos customizados
-- Como lidar com links que abrem em outra aba do navegador
-- Como rodar testes simulando as dimensões de um dispositivo móvel
-- Como resolver os mesmos problemas de diferentes formas, conhecendo a [API do Cypress](https://docs.cypress.io/api/table-of-contents)
-- Como criar uma documentação mínima para seu projeto de testes automatizados
-- Como executar os testes em um _workflow_ de integração contínua sempre que mudanças ocorrerem no código da aplicação (ou dos testes)
-- Como integrar seu _workflow_ de integração contínua com o Cypress Cloud (o serviço de gestão de testes do Cypress na nuvem)
+## Installation
 
-## Vamos começar?
+```bash
+git clone https://github.com/your-username/cypress-do-zero-a-nuvem.git
+cd cypress-do-zero-a-nuvem
+npm install
+```
 
-Vá para a seção [estrutura do curso](./lessons/_course-structure_.md).
+## Running Tests
 
-___
+To run all Cypress tests:
 
-Este é um curso da **Escola Talking About Testing**.
+```bash
+npx cypress open
+```
+or
+```bash
+npx cypress run
+```
+
+## Viewports
+
+This project includes tests for both desktop and mobile viewports to ensure responsive design and functionality across devices.
+
+- **Desktop:** Standard desktop resolutions
+- **Mobile:** Common mobile device resolutions
+
+## Support
+
+If you find this project helpful, please support it by giving a ⭐️!
