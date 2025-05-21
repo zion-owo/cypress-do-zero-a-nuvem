@@ -11,5 +11,4 @@ jobs:
               uses: cypress-io/github-action@v6
               env:
                 CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-              with:
-                command: npm run cy:cloud
+
