@@ -9,10 +9,8 @@ jobs:
 
             - name: Cypress run
               uses: cypress-io/github-action@v6
-              with:
-                start: npm run cy:cloud
-                record: true
-                parallel: true
               env:
                 CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+              with:
+                command: npm run cy:cloud
 
