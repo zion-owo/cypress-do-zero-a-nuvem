@@ -8,25 +8,38 @@ describe('Central de Atendimento ao Cliente - TAT', () => {
   })
 
   it('preenche os campos obrigatórios e envia o formulário', () => {
+    cy.clock()
+    
+
     const longText = Cypress._.repeat('0123456789', 20)
 
-    cy.get('#firstName').type('Eduardo')
-    cy.get('#lastName').type('Henicka')
-    cy.get('#email').type('eduardohenicka2k@gmail.com')
+    cy.get('#firstName').type('Eduardo', { delay: 0 })
+    cy.get('#lastName').type('Henicka', { delay: 0 })
+    cy.get('#email').type('eduardohenicka2k@gmail.com', { delay: 0 })
     cy.get('#open-text-area').type(longText, { delay: 0 })
     cy.contains('button', 'Enviar').click()
 
     cy.get('.success').should('be.visible')
+
+    cy.tick(3000)
+
+    cy.get('.success').should('not.be.visible')
   })
 
   it('teste de erro ao enviar o formulário com email com formatação inválida', () => {
-    cy.get('#firstName').type('Eduardo')
-    cy.get('#lastName').type('Henicka')
-    cy.get('#email').type('eduardohenicka2k@gmail,com')
-    cy.get('#open-text-area').type('Teste de erro ao enviar o formulário com email com formatação inválida')
+    cy.clock()
+
+    cy.get('#firstName').type('Eduardo', { delay: 0 })
+    cy.get('#lastName').type('Henicka', { delay: 0 })
+    cy.get('#email').type('eduardohenicka2k@gmail,com', { delay: 0 })
+    cy.get('#open-text-area').type('Teste de erro ao enviar o formulário com email com formatação inválida', { delay: 0 })
     cy.contains('button', 'Enviar').click()
 
     cy.get('.error').should('be.visible')
+
+    cy.tick(3000)
+
+    cy.get('.error').should('not.be.visible')
   })
 
   it('teste para validar que o campo telefone aceita apenas números', () => {
@@ -185,5 +198,83 @@ describe('Central de Atendimento ao Cliente - TAT', () => {
 
       cy.get('#title').should('be.visible')
       cy.title().should('contains', 'Central de Atendimento ao Cliente TAT - Política de Privacidade')  
+    })
+
+    Cypress._.times(5, () => {
+      it('preenche os campos obrigatórios e envia o formulário', () => {
+        cy.clock()
+
+        cy.get('#firstName').type('Eduardo', { delay: 0 })
+        cy.get('#lastName').type('Henicka', { delay: 0 })
+        cy.get('#email').type('eduardohenicka2k@gmail.com', { delay: 0 })
+        cy.get('#open-text-area').type('Teste teste teste', { delay: 0 })
+        cy.contains('button', 'Enviar').click()
+
+        cy.get('.success').should('be.visible')
+
+        cy.tick(3000)
+
+        cy.get('.success').should('not.be.visible')
+      })
+    })
+
+    it('exibe e esconde as mensagens de sucesso e erro usando o .invoke', () => {
+      cy.get('.success')
+        .should('not.be.visible')
+        .invoke('show')
+        .should('be.visible')
+        .and('contain', 'Mensagem enviada com sucesso.')
+
+      cy.get('.success')
+        .invoke('hide')
+        .should('not.be.visible')
+
+      cy.get('.error')
+        .should('not.be.visible')
+        .invoke('show')
+        .should('be.visible')
+        .and('contain', 'Valide os campos obrigatórios!')
+
+      cy.get('.error')
+        .invoke('hide')
+        .should('not.be.visible')
+    })
+
+    it('preencha uma area de texto usando o comando invoke', () => {
+      const longText = Cypress._.repeat('0123456789', 20)
+
+      cy.get('#open-text-area')
+        .invoke('val', longText)
+        .should('have.value', longText)
+    })
+
+    it('faz uma requisição HTTP', () => {
+      cy.request('https://cac-tat.s3.eu-central-1.amazonaws.com/index.html')
+      .as('getRequest')
+      .its('status')
+      .should('be.equal', 200)
+        
+      cy.get('@getRequest')
+        .its('statusText')
+        .should('be.equal', 'OK')
+
+      cy.get('@getRequest')
+      .its('body')
+      .should('include', '<title>Central de Atendimento ao Cliente TAT</title>')
+    })
+
+    it('encontre o gato', () => {
+      cy.get('#cat')
+      .should('not.be.visible')
+
+      cy.get('#cat')
+      .invoke('show')
+      .should('be.visible')
+
+      cy.get('#title')
+      .invoke('text', 'CAT TAT')
+
+      cy.get('#subtitle')
+      .invoke('text', 'eu amo gatos <3')
     })
 })
